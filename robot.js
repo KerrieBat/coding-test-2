@@ -1,13 +1,51 @@
-// var N = boolean
+// Create Robot
+// Place in starting position on set grid size
+var roxy = null
 
+function Robot(x, y, f) {
+    this.x = x;
+    this.y = y;
+    this.f = f;
+}
+
+// roxy = new Robot(0,0,"NORTH")
+
+//set variables
+var tabletop = (5,5)
 var compass = ["NORTH", "EAST", "SOUTH", "WEST"]
-var roxy = {
-  x: null,
-  y: null,
-  direction: null
-  }
+var error = document.getElementById("error");
+var report = document.getElementById("report");
+var goBtn = document.getElementById('btn')
 
-function PLACE(x, y, f) {
+// Get command
+function doCommand() {
+  debugger
+  error.innerHTML = " "
+
+  var command = document.getElementById('command')
+  // split first part of command up to the space
+  var action = command.value.split(" ")
+  console.log(action[0].toUpperCase())
+
+
+  // Check if first command is a place
+if (action[0].toUpperCase() === "PLACE" && roxy.value == null) {
+  // split second part of command into x,y,f
+  var coords = action[1].split(",")
+  var x = coords[0]
+  var y = coords[1]
+  var f = coords[2].toUpperCase()
+  console.log(x)
+  console.log(y)
+  console.log(f)
+  PLACE (x,y,f)
+} else {
+error.innerHTML = "Roxy the robot must be placed before any other command"
+}
+}
+
+
+function PLACE(x,y,f) {
   if (x < 5 && y < 5) {
     // var position = (x,y)
     var roxy = {
@@ -18,7 +56,7 @@ function PLACE(x, y, f) {
     // var face = f
     // console.log(face)
   } else {
-    console.log("Roxy the robot must be placed on the table top");
+    error.innerHTML = "Roxy the robot must be placed on the table top"
   }
   // return x
   // return y
@@ -27,7 +65,7 @@ function PLACE(x, y, f) {
 function MOVE(x, y, f) {
   if (f == "NORTH") {
     if (y == 4) {
-      console.log("Roxy the Robot will fall off the table, try LEFT or RIGHT");
+      console.log("Roxy the Robot will fall off the table, try LEFT or RIGHT")
     } else {
       y += 1
     }
@@ -76,13 +114,14 @@ function REPORT(x,y,f) {
   console.log("Output:" + x +"," + "," + y + "," + f)
 }
 
-PLACE(1,1,"NORTH")
+// PLACE(1,1,"NORTH")
+//
+// REPORT()
+debugger
+// roxy.direction
+roxy = new Robot(0,0,"NORTH")
 
-REPORT()
-
-roxy.direction
-
-
+goBtn.addEventListener("click", doCommand)
 
 // PLACE 0,0,NORTH
 // MOVE

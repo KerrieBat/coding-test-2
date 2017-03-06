@@ -7,6 +7,22 @@
   <title>Document</title>
 </head>
 <body>
-<script src = robot.js></script>  
+  <h1>Toy Robot Simulator - ROXY</h1>
+
+  <div> <h2>Command: </h2>
+      <input type="text" id="command" >
+      <button type="button" id="btn" name="goBtn">GO</button>
+  </div>
+
+  <div> <h2>Report: </h2>
+    <h2><span id="report"></span></h2>
+  </div>
+
+  <h2 style="color: Red;"> <span id="error"></span> </h2>
+
+  <script src = 'robot.js'></script>
+
 </body>
+<!-- onfocusout="processCommand(this.value)" onkeydown="if (event.keyCode == 13) processCommand(this.value);" -->
+<!-- <span id="error"></span> -->
 </html>
