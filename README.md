@@ -1,4 +1,5 @@
-###Description:
+###The challenge
+##Description:
 The application is a simulation of a toy robot ROXY moving on a square tabletop, of dimensions 5 units x 5 units.
 
 There are no other obstructions on the table surface.
@@ -34,17 +35,32 @@ Constraints:
 The toy robot must not fall off the table during movement. This also includes the initial placement
 of the toy robot. Any move that would cause the robot to fall must be ignored.
 
-#Example Input and Output:
+##Installation
+link is here
+https://kerriebat.github.io/coding-test-2/
+
+## Design decisions
+This was written in Javascript with an input page only.
+
+## Further development
+- I will rewrite using Node.js and add Mocha testing.
+- I want to add more error trapping
+- Add a graphical interface
+
+
+## Example Input and Output:
 a)----------------
 PLACE 0,0,NORTH
 MOVE
 REPORT
 Output: 0,1,NORTH
+
 b)----------------
 PLACE 0,0,NORTH
 LEFT
 REPORT
 Output: 0,0,WEST
+
 c)----------------
 PLACE 1,2,EAST
 MOVE
@@ -53,3 +69,7 @@ LEFT
 MOVE
 REPORT
 Output: 3,3,NORTH
+
+## Discussion
+I went back to basics for this project. I wasted some time with trying to pass a local variable between functions.
+To check operation I have simply typed in the example inputs and outputs, they pass. I did not do test driven development so plan to redo it using Node and Mocha.
