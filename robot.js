@@ -1,15 +1,15 @@
 // Create Robot
 // Place in starting position on set grid size
-var roxy = null
+var roxy = {}
 
-function Robot(x, y, f) {
-    this.x = x;
-    this.y = y;
-    this.f = f;
-}
+// function Robot(x, y, f) {
+//     this.x = x
+//     this.y = y
+//     this.f = f
+// }
 
 //set variables
-var tabletop = (5,5)
+// var tabletop = (5,5)
 var compass = ["NORTH", "EAST", "SOUTH", "WEST"]
 var error = document.getElementById("error")
 var report = document.getElementById("report")
@@ -18,17 +18,14 @@ var firstMove = true
 
 // Get command function
 function doCommand() {
-debugger
+  debugger
   //reset error message
   error.innerHTML = " "
-
   //get command
   var command = document.getElementById('command')
-
   // split first part of command up to the space
   var action = command.value.split(" ")
   console.log(action[0].toUpperCase())
-
   // Check if first command is a place
     if (action[0].toUpperCase() != "PLACE" && firstMove) {
       error.innerHTML = "Roxy the robot must be placed before any other command"
@@ -37,63 +34,50 @@ debugger
         // if its the first move and a place, toggle firstMove
         firstMove = false
     }
-
-
-    // } else if (action[0].toUpperCase() == "PLACE") {
-    //   split second part of command into x,y,f
-    //   var coords = action[1].split(",")
-    //   var x = coords[0]
-    //   var y = coords[1]
-    //   var f = coords[2].toUpperCase()
-    //   console.log(x)
-    //   console.log(y)
-    //   console.log(f)
-    //   PLACE(x,y,f)
-    // }
-
+    debugger
     switch (action[0].toUpperCase()) {
       case "PLACE":
         // split second part of command into x,y,f
         var coords = action[1].split(",")
-        var x = coords[0]
-        var y = coords[1]
-        var f = coords[2].toUpperCase()
-        PLACE(x,y,f)
-        return
+        //set roxy to place position
+        roxy = {
+          x: parseInt(coords[0]),
+          y: parseInt(coords[1]),
+          direction: coords[2].toUpperCase()
+        }
+        PLACE()
+        break
+        // return roxy
       case "MOVE":
-        MOVE (x,y,f)
-        return
+        MOVE ()
+        // return
+        break
       case "LEFT":
-        LEFT (x,y,f)
-        return
+        LEFT ()
+        // return roxy
       case "RIGHT":
-        RIGHT (x,y,f)
-        return
+        RIGHT ()
+        // return
       case "REPORT":
-        REPORT (roxy)
-        return
+        REPORT ()
+        break
+        // return
     }
     console.log(roxy);
 }
 
 // move robot to x,y
-function PLACE(x,y,f) {
-  if (x <= 5 && y <= 5 && (f==="NORTH" || f==="EAST" || f==="SOUTH" || f==="WEST")) {
-    // var position = (x,y)
-    var roxy = {
-    x: x,
-    y: y,
-    direction: f
-    }
-    // var face = f
+function PLACE() {
+  //check place command is valid
+  debugger
+  if (roxy.x < 5 && roxy.y < 5 && (roxy.direction==="NORTH" || roxy.direction==="EAST" || roxy.direction==="SOUTH" || roxy.direction==="WEST")) {
     console.log(roxy)
   } else {
-    error.innerHTML = "Roxy the robot must be placed on the table top with valid facing"
+    error.innerHTML = "Roxy the robot must be placed on the table top (5x5) with a valid facing"
   }
-  console.log(roxy);
 }
 
-function MOVE(x, y, f) {
+function MOVE() {
   if (f == "NORTH") {
     if (y == 4) {
       console.log("Roxy the Robot will fall off the table, try LEFT or RIGHT")
@@ -122,22 +106,23 @@ function MOVE(x, y, f) {
       x -= 1
     }
   }
-  var roxy = {
+  roxy = {
   x: x,
   y: y,
   direction: f
   }
   console.log(roxy)
+  // return roxy
 }
 
-function LEFT(x,y,f) {
-  var startIndex = compass.indexof(f)
+function LEFT() {
+  var startIndex = compass.indexof(roxy.direction)
   if (startIndex = 0) {
     f = WEST
   } else {
     f = compass(startindex-1)
   }
-  var roxy = {
+  roxy = {
   x: x,
   y: y,
   direction: f
@@ -145,8 +130,14 @@ function LEFT(x,y,f) {
   console.log(roxy)
 }
 
-function RIGHT(x,y,f) {
-  var roxy = {
+function RIGHT() {
+  var startIndex = compass.indexof(roxy.direction)
+  if (startIndex = 4) {
+    f = NORTH
+  } else {
+    f = compass(startindex+1)
+  }
+  roxy = {
   x: x,
   y: y,
   direction: f
@@ -155,11 +146,13 @@ function RIGHT(x,y,f) {
 }
 
 // when report, send final position and face.
-function REPORT(roxy) {
-  console.log("Output:" + roxy.x +"," + "," + roxy.y + "," + roxy.direction)
+function REPORT() {
+  debugger
+  console.log("Output:" + roxy.x +"," + roxy.y + "," + roxy.direction)
+  // return roxy
 }
 
 // roxy.direction
-roxy = new Robot(0,0,"NORTH")
-
-goBtn.addEventListener("click", doCommand)
+// roxy = new Robot(0,0,"NORTH")
+//
+// goBtn.addEventListener("click", doCommand())
