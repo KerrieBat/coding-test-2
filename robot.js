@@ -2,14 +2,7 @@
 // Place in starting position on set grid size
 var roxy = {}
 
-// function Robot(x, y, f) {
-//     this.x = x
-//     this.y = y
-//     this.f = f
-// }
-
 //set variables
-// var tabletop = (5,5)
 var compass = ["NORTH", "EAST", "SOUTH", "WEST"]
 var error = document.getElementById("error")
 var report = document.getElementById("report")
@@ -18,7 +11,6 @@ var firstMove = true
 
 // Get command function
 function doCommand() {
-  debugger
   //reset error message
   error.innerHTML = " "
   //get command
@@ -34,7 +26,6 @@ function doCommand() {
         // if its the first move and a place, toggle firstMove
         firstMove = false
     }
-    debugger
     switch (action[0].toUpperCase()) {
       case "PLACE":
         // split second part of command into x,y,f
@@ -47,29 +38,27 @@ function doCommand() {
         }
         PLACE()
         break
-        // return roxy
       case "MOVE":
         MOVE ()
-        // return
         break
       case "LEFT":
         LEFT ()
-        // return roxy
+        break
       case "RIGHT":
         RIGHT ()
-        // return
+        break
       case "REPORT":
         REPORT ()
         break
-        // return
+      default:
+        error.innerHTML = "I don't recognise that command, please try again"
     }
-    console.log(roxy);
+    console.log(roxy)
 }
 
 // move robot to x,y
 function PLACE() {
   //check place command is valid
-  debugger
   if (roxy.x < 5 && roxy.y < 5 && (roxy.direction==="NORTH" || roxy.direction==="EAST" || roxy.direction==="SOUTH" || roxy.direction==="WEST")) {
     console.log(roxy)
   } else {
@@ -78,81 +67,64 @@ function PLACE() {
 }
 
 function MOVE() {
-  if (f == "NORTH") {
-    if (y == 4) {
-      console.log("Roxy the Robot will fall off the table, try LEFT or RIGHT")
+  debugger
+  switch (roxy.direction) {
+  case "NORTH":
+    if (roxy.y == 4) {
+      offError()
     } else {
-      y += 1
+      roxy.y += 1
     }
-  }
-  if (f == "SOUTH") {
-    if (y == 0) {
-      console.log("Roxy the Robot will fall off the table, try LEFT or RIGHT");
+    break
+  case "SOUTH":
+    if (roxy.y == 0) {
+      offError()
     } else {
-      y -= 1
+      roxy.y -= 1
     }
-  }
-  if (f == "EAST") {
-    if (x == 4) {
-      console.log("Roxy the Robot will fall off the table, try LEFT or RIGHT");
+    break
+  case "EAST":
+    if (roxy.x == 4) {
+      offError()
     } else {
-      x += 1
+      roxy.x += 1
     }
-  }
-  if (f == "WEST") {
-    if (x == 0) {
-      console.log("Roxy the Robot will fall off the table, try LEFT or RIGHT");
+    break
+  case "WEST":
+    if (roxy.x == 0) {
+      offError()
     } else {
-      x -= 1
+      roxy.x -= 1
     }
-  }
-  roxy = {
-  x: x,
-  y: y,
-  direction: f
+    break
   }
   console.log(roxy)
-  // return roxy
 }
 
 function LEFT() {
-  var startIndex = compass.indexof(roxy.direction)
-  if (startIndex = 0) {
-    f = WEST
+  var startIndex = compass.indexOf(roxy.direction)
+  if (startIndex == 0) {
+    roxy.direction = "WEST"
   } else {
-    f = compass(startindex-1)
+    roxy.direction = compass[startIndex-1]
   }
-  roxy = {
-  x: x,
-  y: y,
-  direction: f
-  }
-  console.log(roxy)
 }
 
 function RIGHT() {
-  var startIndex = compass.indexof(roxy.direction)
-  if (startIndex = 4) {
-    f = NORTH
+  var startIndex = compass.indexOf(roxy.direction)
+  if (startIndex == 4) {
+    roxy.direction = "NORTH"
   } else {
-    f = compass(startindex+1)
+    roxy.direction = compass[startIndex+1]
   }
-  roxy = {
-  x: x,
-  y: y,
-  direction: f
-  }
-  console.log(roxy)
 }
 
 // when report, send final position and face.
 function REPORT() {
-  debugger
-  console.log("Output:" + roxy.x +"," + roxy.y + "," + roxy.direction)
-  // return roxy
+  console.log("Report:" + roxy.x +"," + roxy.y + "," + roxy.direction)
+  report.innerHTML = "Position: " + roxy.x +", " + roxy.y + ", " + roxy.direction
 }
 
-// roxy.direction
-// roxy = new Robot(0,0,"NORTH")
-//
-// goBtn.addEventListener("click", doCommand())
+function offError() {
+    error.innerHTML = "Roxy the Robot will fall off the table, try LEFT or RIGHT"
+}
